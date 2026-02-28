@@ -28,15 +28,16 @@
 }
 
 .rank-badge {
-    background: rgba(59, 130, 246, 0.2);
-    color: #60a5fa;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 0.7rem;
-    font-weight: 700;
+    background: #000;
+    color: #ffd700;
+    padding: 4px 8px;
+    font-size: 0.65rem;
+    font-family: 'Press Start 2P', monospace, sans-serif;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border: 1px solid rgba(59, 130, 246, 0.4);
+    letter-spacing: 1px;
+    border: 2px solid #b8860b;
+    box-shadow: 2px 2px 0 #555;
+    image-rendering: pixelated;
 }
 
 .level-info {
@@ -55,19 +56,22 @@
 
 .xp-bar-container {
     flex-grow: 1;
-    height: 6px;
-    background-color: #334155;
-    border-radius: 3px;
-    overflow: hidden;
+    height: 12px;
+    background-color: #222;
+    border: 2px solid #555;
     position: relative;
+    /* Pixel Grid Background */
+    background-image:
+        linear-gradient(to right, #444 1px, transparent 1px);
+    background-size: 10% 100%;
 }
 
 .xp-fill {
     height: 100%;
-    background: linear-gradient(90deg, #3b82f6, #60a5fa);
-    border-radius: 3px;
-    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 8px rgba(59, 130, 246, 0.8);
+    background-color: #32cd32;
+    transition: width 0.3s steps(10, end);
+    /* Blocky segmented look */
+    border-right: 2px solid #006400;
 }
 
 .hygiene-stats {

@@ -7,3 +7,35 @@
     @apply bg-slate-950 text-slate-50 antialiased;
   }
 }
+
+@layer utilities {
+  .font-pixel {
+    font-family: 'Press Start 2P', system-ui, sans-serif;
+  }
+
+  .duo-button {
+    @apply relative border-b-4 rounded-xl font-bold uppercase tracking-wider transition-all duration-150 active:border-b-0 active:translate-y-1;
+  }
+
+  .duo-button-blue {
+    @apply bg-blue-500 border-blue-700 hover:bg-blue-400 text-white;
+  }
+
+  .duo-button-green {
+    @apply bg-emerald-500 border-emerald-700 hover:bg-emerald-400 text-white;
+  }
+
+  .duo-button-gray {
+    @apply bg-slate-700 border-slate-900 hover:bg-slate-600 text-slate-300 cursor-not-allowed;
+  }
+
+  /* Pixelated Box Shadow for authentic retro look */
+  .pixel-box {
+    box-shadow:
+      -4px 0 0 0 currentcolor,
+      4px 0 0 0 currentcolor,
+      0 -4px 0 0 currentcolor,
+      0 4px 0 0 currentcolor;
+    margin: 4px;
+  }
+}
