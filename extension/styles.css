@@ -1,0 +1,207 @@
+:root {
+    --bg-dark: #0f172a; /* Slate 900 */
+    --text-main: #f8fafc; /* Slate 50 */
+    --text-muted: #94a3b8; /* Slate 400 */
+    --primary: #3b82f6; /* Blue 500 */
+    --danger: #ef4444; /* Red 500 */
+    --warning: #f59e0b; /* Amber 500 */
+    --success: #22c55e; /* Green 500 */
+    --card-bg: #1e293b; /* Slate 800 */
+}
+
+body {
+    width: 350px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+}
+
+.container {
+    padding: 1rem;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--card-bg);
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--primary);
+}
+
+/* Cards */
+.card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--text-muted);
+}
+
+.card.danger {
+    border-left-color: var(--danger);
+}
+
+.card.warning {
+    border-left-color: var(--warning);
+}
+
+.card.safe {
+    border-left-color: var(--success);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.badge {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    background: var(--text-muted);
+    color: var(--bg-dark);
+}
+
+.danger-badge {
+    background: var(--danger);
+    color: white;
+}
+
+.safe-badge {
+    background: var(--success);
+    color: white;
+}
+
+.card-body p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0 0 1rem 0;
+}
+
+/* Progress / Score */
+.score-container {
+    margin-top: 0.5rem;
+}
+
+.label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: #334155; /* Slate 700 */
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--primary);
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* Hygiene Card */
+.hygiene-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--card-bg);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.hygiene-card .label {
+    margin-bottom: 0;
+}
+
+.score-text {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--success);
+}
+
+.score-text.warning {
+    color: var(--warning);
+}
+
+.score-text.danger {
+    color: var(--danger);
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--card-bg);
+    margin: 1rem 0;
+}
+
+/* QR Section */
+.qr-section {
+    text-align: center;
+}
+
+.qr-section h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+.qr-section p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0 0 0.75rem 0;
+}
+
+input[type="file"] {
+    display: block;
+    width: 100%;
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-muted);
+}
+
+button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #2563eb; /* Blue 600 */
+}
+
+.hidden {
+    display: none;
+}
+
+.danger-text { color: var(--danger); margin-top: 0.5rem; font-weight: 500;}
+.warning-text { color: var(--warning); margin-top: 0.5rem; font-weight: 500;}

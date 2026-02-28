@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusShield AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="gamify.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🛡 CampusShield AI</div>
+        </header>
+
+        <main>
+            <div id="status-card" class="card loading">
+                <div class="card-header">
+                    <h2>Analyzing Page...</h2>
+                    <span id="risk-badge" class="badge">--</span>
+                </div>
+                <div class="card-body">
+                    <p id="explanation">Waiting for threat engine response.</p>
+                </div>
+
+                <div class="score-container">
+                    <span class="label">Risk Score</span>
+                    <div class="progress-bar">
+                        <div id="risk-fill" class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-card">
+                <div class="profile-header">
+                    <span class="label">Defense Profile</span>
+                    <span id="player-rank" class="rank-badge">Rookie</span>
+                </div>
+                <div class="level-info">
+                    <span id="player-level" class="level-text">Lv. 1</span>
+                    <div class="xp-bar-container">
+                        <div id="xp-fill" class="xp-fill" style="width: 10%;"></div>
+                    </div>
+                </div>
+                <div class="hygiene-stats">
+                    <span class="label">Hygiene XP:</span>
+                    <span id="hygiene-score" class="score-text">100</span>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="qr-section">
+                <h3>QR Scanner</h3>
+                <p>Upload a QR code to scan for malicious redirects.</p>
+                <input type="file" id="qr-upload" accept="image/*">
+                <button id="scan-qr-btn">Scan Code</button>
+                <p id="qr-result" class="hidden"></p>
+            </div>
+        </main>
+    </div>
+    <script src="popup.js"></script>
+</body>
+
+</html>
