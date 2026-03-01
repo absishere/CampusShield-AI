@@ -2,7 +2,7 @@ services:
   - type: web
     name: campusshield-api
     env: python
-    buildCommand: "cd backend && pip install -r requirements.txt"
+    buildCommand: "cd backend && pip install -r requirements.txt && pip install psycopg2-binary"
     startCommand: "cd backend && gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker"
     envVars:
       - key: DATABASE_URL
