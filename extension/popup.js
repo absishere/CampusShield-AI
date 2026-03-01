@@ -49,19 +49,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (scan) {
             // Update UI based on risk
-            if (scan.status === 'risky') {
+            if (scan.threat_classification !== 'Safe') {
                 statusCard.classList.add('danger');
-                riskBadge.textContent = 'RISK DETECTED';
+                riskBadge.textContent = scan.threat_classification.toUpperCase();
                 riskBadge.classList.add('danger-badge');
 
-                // Penalize hygiene score on risky clicks
+                // UPGRADE 5: Dynamic Penalty based on exact risk score
                 chrome.storage.local.get(['hygieneScore'], (res) => {
-                    let newScore = (res.hygieneScore || 100) - 5;
+                    let penalty = Math.max(2, Math.floor(scan.risk_score / 10)); // Heavier penalty for worse sites
+                    let newScore = (res.hygieneScore || 100) - penalty;
                     if (newScore < 0) newScore = 0;
                     chrome.storage.local.set({ hygieneScore: newScore });
                     updateProfileUI(newScore);
                 });
-            } else if (scan.status === 'safe') {
+
+                // Show the interactive teach-back button
+                const recoverBtn = document.getElementById('recover-xp-btn');
+                recoverBtn.classList.remove('hidden');
+
+                recoverBtn.onclick = () => {
+                    chrome.storage.local.get(['hygieneScore'], (res) => {
+                        let recoveredScore = Math.min(100, (res.hygieneScore || 100) + 3);
+                        chrome.storage.local.set({ hygieneScore: recoveredScore });
+                        updateProfileUI(recoveredScore);
+                        recoverBtn.textContent = "Lesson Learned! ✅";
+                        recoverBtn.style.backgroundColor = "#3b82f6";
+                        recoverBtn.disabled = true;
+                    });
+                };
+            } else if (scan.threat_classification === 'Safe') {
                 statusCard.classList.add('safe');
                 riskBadge.textContent = 'SAFE';
                 riskBadge.classList.add('safe-badge');
@@ -102,11 +118,32 @@ document.addEventListener('DOMContentLoaded', () => {
         resultEl.className = "warning-text";
         resultEl.classList.remove('hidden');
 
-        // Simulate a call to the backend QR API endpoint
-        setTimeout(() => {
-            // For now, hardcode a malicious result to demonstrate the UI
-            resultEl.textContent = "🚨 Malicious URL detected in QR: http://evil-phishing-login.com";
-            resultEl.className = "danger-text";
-        }, 1500);
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const base64Data = e.target.result;
+
+            fetch("http://localhost:8000/api/scan-qr", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ image_base64: base64Data, device_id: "extension_client" })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const threat = data.threat_classification;
+                    if (threat !== 'Safe') {
+                        resultEl.textContent = `🚨 QR Threat Detected (${threat}): ${data.explanation}`;
+                        resultEl.className = "danger-text";
+                    } else {
+                        resultEl.textContent = `✅ QR Code Safe: ${data.explanation}`;
+                        resultEl.className = "safe-text text-emerald-400";
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    resultEl.textContent = "❌ Failed to process QR Code via CampusShield AI Backend.";
+                    resultEl.className = "danger-text";
+                });
+        };
+        reader.readAsDataURL(file);
     });
 });

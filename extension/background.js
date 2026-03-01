@@ -2,7 +2,7 @@
 
 chrome.runtime.onInstalled.addListener(() => {
   console.log('CampusShield AI Extension Installed');
-  
+
   // Initialize Digital Hygiene Score if not present
   chrome.storage.local.get(['hygieneScore'], (result) => {
     if (result.hygieneScore === undefined) {
@@ -29,12 +29,12 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
       .then((response) => response.json())
       .then((data) => {
         console.log('Threat Engine Response:', data);
-        
+
         // Let the popup know about the latest scanned data
         chrome.storage.local.set({ latestScan: { url: tab.url, ...data } });
 
         // Change badge color based on risk
-        if (data.status === 'safe') {
+        if (data.threat_classification === 'Safe') {
           chrome.action.setBadgeBackgroundColor({ color: '#22c55e', tabId }); // Green
           chrome.action.setBadgeText({ text: 'OK', tabId });
         } else {

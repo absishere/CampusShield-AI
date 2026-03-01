@@ -7,42 +7,32 @@ import joblib
 import os
 import numpy as np
 
-def create_sample_dataset():
-    # Synthetic dataset for phishing training
-    data = [
-        {"url": "https://campus-portal.university.edu/login", "label": 0},
-        {"url": "http://campus-portal-update.com/login", "label": 1},
-        {"url": "https://university.edu/dashboard", "label": 0},
-        {"url": "http://verify-university-account.info/", "label": 1},
-        {"url": "https://scholarship-university.edu/apply", "label": 0},
-        {"url": "http://urgent-scholarship-payment.com/fee", "label": 1},
-        {"url": "https://mail.university.edu/", "label": 0},
-        {"url": "http://login-mail-university.xyz/", "label": 1},
-        {"url": "https://library.university.edu/books", "label": 0},
-        {"url": "http://library-fine-payment-urgent.net/", "label": 1},
-        {"url": "https://student-services.university.edu/", "label": 0},
-        {"url": "http://student-services-verify.org/", "label": 1},
-    ]
-    return data
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
 
 def train_and_export():
-    print("Loading dataset...")
-    data = create_sample_dataset()
-    X = np.array([item["url"] for item in data])
-    y = np.array([item["label"] for item in data])
+    print("Loading real Kaggle dataset...")
+    # Map 'bad'/'phishing' to 1 (threat), 'good'/'benign' to 0 (safe)
+    df = pd.read_csv("phishing_dataset.csv.csv").sample(n=10000, random_state=42) # Use 10k rows for speed
+    
+    # Handle the dataset's column naming (url, type)
+    df['label'] = df['type'].apply(lambda x: 1 if "phishing" in str(x).lower() or "bad" in str(x).lower() else 0)
+    
+    X_train, X_test, y_train, y_test = train_test_split(df['url'], df['label'], test_size=0.2, random_state=42)
 
     print("Training TF-IDF + Logistic Regression pipeline...")
     # We use a pipeline so ONNX can handle raw string inputs directly
     pipeline = Pipeline([
-        ('tfidf', TfidfVectorizer(max_features=1000)),
-        ('clf', LogisticRegression(random_state=42))
+        ('tfidf', TfidfVectorizer(max_features=5000)),
+        ('clf', LogisticRegression(random_state=42, max_iter=1000))
     ])
     
-    pipeline.fit(X, y)
+    pipeline.fit(X_train, y_train)
     
     print("Evaluating model...")
-    score = pipeline.score(X, y)
-    print(f"Accuracy on training set: {score:.2f}")
+    y_pred = pipeline.predict(X_test)
+    print(classification_report(y_test, y_pred))
 
     # Ensure models directory exists
     os.makedirs("models", exist_ok=True)
