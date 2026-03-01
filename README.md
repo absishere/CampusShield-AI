@@ -80,5 +80,5 @@ npm run dev
 ---
 
 ## 🤝 The Team
-- **Dev 1 (Backend & Machine Learning)**: Responsible for `train_model.py` Kaggle ingests, ONNX export workflows, the FastAPI Threat Engine orchestration, and AMD Hardware mapping optimizations.
-- **Dev 2 (Frontend & Extension UX)**: Responsible for the Vite React Enterprise Dashboard, gamification workflows in `popup.js`, TailwindCSS styling, and Recharts integration.
+- **Abbas Sangameshwari (Backend & Machine Learning)**: Responsible for `train_model.py` Kaggle ingests, ONNX export workflows, the FastAPI Threat Engine orchestration, and AMD Hardware mapping optimizations.
+- **Atharv Wadekar (Frontend & Extension UX)**: Responsible for the Vite React Enterprise Dashboard, gamification workflows in `popup.js`, TailwindCSS styling, and Recharts integration.
