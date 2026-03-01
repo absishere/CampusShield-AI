@@ -19,7 +19,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     console.log(`Analyzing URL: ${tab.url}`);
 
     // Fetch the risk score from the backend stub
-    fetch('http://localhost:8000/api/scan-url', {
+    fetch(`${CONFIG.API_BASE}/scan-url`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

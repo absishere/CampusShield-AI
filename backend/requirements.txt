@@ -15,3 +15,4 @@ pillow
 pyzbar
 requests
 pandas
+gunicorn

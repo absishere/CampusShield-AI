@@ -55,10 +55,18 @@ function App() {
             </span>
           </div>
           <div className="flex items-center gap-4 text-sm font-medium">
-            <span className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
+            <a
+              href="/campusshield-extension.zip"
+              download
+              className="px-4 py-1.5 rounded-md bg-blue-600 hover:bg-blue-500 text-white font-medium shadow-lg transition-colors border border-blue-400/50 flex items-center gap-2"
+            >
+              <Shield className="w-4 h-4" />
+              Download Extension
+            </a>
+            <span className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 hidden sm:inline-block">
               System: Online
             </span>
-            <div className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 mt-1 flex items-center justify-center cursor-pointer hover:bg-slate-700 transition">
+            <div className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center cursor-pointer hover:bg-slate-700 transition">
               <span className="text-slate-400">IT</span>
             </div>
           </div>

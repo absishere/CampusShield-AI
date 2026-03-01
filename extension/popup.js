@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reader.onload = function (e) {
             const base64Data = e.target.result;
 
-            fetch("http://localhost:8000/api/scan-qr", {
+            fetch(`${CONFIG.API_BASE}/scan-qr`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ image_base64: base64Data, device_id: "extension_client" })
